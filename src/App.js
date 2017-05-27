@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import trelloLogo from './images/trelloViewer.png';
 import uberhacker from './images/uberhacker.png';
+import downArrow from './images/downArrow.jpg';
 
 class App extends Component {
     constructor() {
@@ -25,8 +26,32 @@ function Header(props) {
     return (
         <div className = "Header">
             <h1>{props.title}</h1>
+            <ScrollButton />
         </div>
     );
+}
+
+class ScrollButton extends Component {
+    constructor() {
+        super();
+        this.state = {
+            hasScrolled: false
+        }
+    }
+    
+    scroll() {
+        document.getElementsByClassName("Projects")[0].scrollIntoView(true);
+        this.setState({hasScrolled: true});
+    }
+    
+    render() {
+        if (!this.state.hasScrolled) {
+            return(
+                <img src={downArrow} alt="scroll down" className="ScrollButton" onClick={() => {this.scroll();}}/>
+            );
+        }
+        return null;
+    }
 }
 
 function Body() {
